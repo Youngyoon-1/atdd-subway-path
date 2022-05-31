@@ -1,29 +1,23 @@
 package wooteco.subway.domain.discountstrategy;
 
-import java.util.Arrays;
-import java.util.function.Predicate;
-import java.util.function.Supplier;
+import java.util.ArrayList;
+import java.util.List;
 
-public enum AgeDiscountStrategyFactory {
+public class AgeDiscountStrategyFactory {
+    static final List<AgeDiscountStrategy> strategies = new ArrayList<>();
 
-    CHILDREN_STRATEGY((age) -> age >= 6 && age < 13, ChildrenDiscountStrategy::new),
-    TEENAGER_STRATEGY((age) -> age >= 13 && age < 19, TeenagerDiscountStrategy::new),
-    DEFAULT_STRATEGY((age) -> false, DefaultDiscountStrategy::new);
+    static {
+        strategies.add(new ChildrenDiscountStrategy());
+        strategies.add(new TeenagerDiscountStrategy());
+    }
 
-    private final Predicate<Integer> predicate;
-    private final Supplier<AgeDiscountStrategy> supplier;
-
-    AgeDiscountStrategyFactory(Predicate<Integer> predicate, Supplier<AgeDiscountStrategy> supplier) {
-        this.predicate = predicate;
-        this.supplier = supplier;
+    private AgeDiscountStrategyFactory() {
     }
 
     public static AgeDiscountStrategy from(int age) {
-        var strategy = Arrays.stream(values())
-                .filter(it -> it.predicate.test(age))
+        return strategies.stream()
+                .filter(it -> it.available(age))
                 .findFirst()
-                .orElse(DEFAULT_STRATEGY);
-
-        return strategy.supplier.get();
+                .orElse(new DefaultDiscountStrategy());
     }
 }
