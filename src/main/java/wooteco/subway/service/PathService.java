@@ -8,9 +8,10 @@ import wooteco.subway.domain.Lines;
 import wooteco.subway.domain.Sections;
 import wooteco.subway.domain.Stations;
 import wooteco.subway.domain.path.Path;
+import wooteco.subway.domain.support.GraphEdgeFactory;
+import wooteco.subway.domain.support.GraphPathResponse;
+import wooteco.subway.domain.support.PathFinder;
 import wooteco.subway.dto.path.PathResponse;
-import wooteco.subway.util.GraphEdgeFactory;
-import wooteco.subway.util.PathFinder;
 
 @Service
 public class PathService {
@@ -31,7 +32,7 @@ public class PathService {
 
         var pathFinder = new PathFinder(stations.getIds(), GraphEdgeFactory.from(sections.get()));
 
-        var graphPathResponse = pathFinder.find(source, target);
+        GraphPathResponse graphPathResponse = pathFinder.find(source, target);
 
         var path = new Path(
                 stations,

@@ -1,4 +1,4 @@
-package wooteco.subway.util;
+package wooteco.subway.domain.support;
 
 public class GraphEdgeRequest {
     private final Long sourceVertex;

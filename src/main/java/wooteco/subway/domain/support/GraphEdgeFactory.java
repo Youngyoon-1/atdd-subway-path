@@ -1,4 +1,4 @@
-package wooteco.subway.util;
+package wooteco.subway.domain.support;
 
 import java.util.List;
 import java.util.stream.Collectors;

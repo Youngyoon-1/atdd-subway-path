@@ -6,8 +6,9 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import wooteco.subway.domain.path.Path;
-import wooteco.subway.util.GraphEdgeFactory;
-import wooteco.subway.util.PathFinder;
+import wooteco.subway.domain.support.GraphEdgeFactory;
+import wooteco.subway.domain.support.GraphPathResponse;
+import wooteco.subway.domain.support.PathFinder;
 
 public class PathFinderTest {
 
@@ -41,7 +42,7 @@ public class PathFinderTest {
 
         var pathFinder = new PathFinder(stations.getIds(), GraphEdgeFactory.from(sections.get()));
 
-        var graphPathResponse = pathFinder.find(1L, 3L);
+        GraphPathResponse graphPathResponse = pathFinder.find(1L, 3L);
 
         //when
         var pathResult = path.getPath(graphPathResponse, CHILDREN_AGE);
