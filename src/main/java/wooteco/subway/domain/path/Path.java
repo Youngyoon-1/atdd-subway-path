@@ -17,10 +17,7 @@ public class Path {
     private final Sections sections;
     private final Lines lines;
 
-    public Path(Stations stations,
-                Sections sections,
-                Lines lines
-    ) {
+    public Path(Stations stations, Sections sections, Lines lines) {
         this.stations = stations;
         this.sections = sections;
         this.lines = lines;
