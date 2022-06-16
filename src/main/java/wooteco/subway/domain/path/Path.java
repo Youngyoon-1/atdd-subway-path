@@ -8,8 +8,6 @@ import wooteco.subway.domain.Lines;
 import wooteco.subway.domain.Section;
 import wooteco.subway.domain.Sections;
 import wooteco.subway.domain.Stations;
-import wooteco.subway.domain.support.Edge;
-import wooteco.subway.domain.support.GraphPathResponse;
 
 public class Path {
 

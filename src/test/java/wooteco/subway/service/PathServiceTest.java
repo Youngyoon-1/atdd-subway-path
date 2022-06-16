@@ -6,16 +6,16 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
-import wooteco.subway.dao.LineDao;
-import wooteco.subway.dao.SectionDao;
-import wooteco.subway.dao.StationDao;
+import org.springframework.test.context.jdbc.Sql;
 
-@JdbcTest
+@SpringBootTest
+@Sql("/truncate.sql")
 public class PathServiceTest {
 
+    @Autowired
     private PathService pathService;
     private Long firstStationId;
     private Long secondStationId;
@@ -26,12 +26,6 @@ public class PathServiceTest {
 
     @BeforeEach
     void setUp() {
-        this.pathService = new PathService(
-                new StationDao(jdbcTemplate),
-                new SectionDao(jdbcTemplate),
-                new LineDao(jdbcTemplate)
-        );
-
         this.firstStationId = insertStation("테스트1역");
         this.secondStationId = insertStation("테스트2역");
         this.thirdStationId = insertStation("테스트3역");

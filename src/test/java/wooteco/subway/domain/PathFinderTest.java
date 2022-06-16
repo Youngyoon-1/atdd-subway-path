@@ -6,9 +6,9 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import wooteco.subway.domain.path.Path;
-import wooteco.subway.domain.support.GraphEdgeFactory;
-import wooteco.subway.domain.support.GraphPathResponse;
-import wooteco.subway.domain.support.PathFinder;
+import wooteco.subway.domain.path.DijkstraPathFinder;
+import wooteco.subway.domain.path.GraphEdgeFactory;
+import wooteco.subway.domain.path.GraphPathResponse;
 
 public class PathFinderTest {
 
@@ -40,7 +40,8 @@ public class PathFinderTest {
 
         var path = new Path(stations, sections, new Lines(lines));
 
-        var pathFinder = new PathFinder(stations.getIds(), GraphEdgeFactory.from(sections.get()));
+        var pathFinder = new DijkstraPathFinder();
+        pathFinder.set(stations.getIds(), GraphEdgeFactory.from(sections.get()));
 
         GraphPathResponse graphPathResponse = pathFinder.find(1L, 3L);
 

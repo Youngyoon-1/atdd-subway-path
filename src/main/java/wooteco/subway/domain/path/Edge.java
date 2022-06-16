@@ -1,4 +1,4 @@
-package wooteco.subway.domain.support;
+package wooteco.subway.domain.path;
 
 import java.util.List;
 

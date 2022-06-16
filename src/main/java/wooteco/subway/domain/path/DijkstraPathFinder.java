@@ -1,16 +1,19 @@
-package wooteco.subway.domain.support;
+package wooteco.subway.domain.path;
 
 import java.util.List;
 import java.util.stream.Collectors;
 import org.jgrapht.alg.shortestpath.DijkstraShortestPath;
 import org.jgrapht.graph.DefaultWeightedEdge;
 import org.jgrapht.graph.WeightedMultigraph;
+import org.springframework.stereotype.Component;
 
-public class PathFinder {
+@Component
+public class DijkstraPathFinder implements PathFinder {
 
-    private final DijkstraShortestPath<Long, DefaultWeightedEdge> graph;
+    private DijkstraShortestPath<Long, DefaultWeightedEdge> graph;
 
-    public PathFinder(List<Long> vertexes, List<GraphEdgeRequest> edges) {
+    @Override
+    public void set(List<Long> vertexes, List<GraphEdgeRequest> edges) {
         WeightedMultigraph<Long, DefaultWeightedEdge> graph = new WeightedMultigraph(DefaultWeightedEdge.class);
         setVertex(vertexes, graph);
         setEdgeWeight(edges, graph);
@@ -33,6 +36,7 @@ public class PathFinder {
         }
     }
 
+    @Override
     public GraphPathResponse find(Long source, Long target) {
         var shortestPath = graph.getPath(source, target);
 
@@ -41,6 +45,7 @@ public class PathFinder {
                 shortestPath.getWeight()
         );
     }
+
 
     private List<Edge> parseEdgeList(List<DefaultWeightedEdge> edgeList) {
         return edgeList.stream()
